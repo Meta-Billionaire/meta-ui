@@ -1,0 +1,8 @@
+{
+  "short_name": "METABILLIONAIRE",
+  "name": "METABILLIONAIRE",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000",
+  "background_color": "#000"
+}
