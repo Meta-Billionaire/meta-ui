@@ -1,19 +1,13 @@
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import React from "react";
 import QRCode from "qrcode.react";
 // Chakra imports
 import {
   Box,
-  Button,
   Flex,
   SimpleGrid,
   Icon,
   Text,
   Link,
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
   CircularProgress,
   useColorModeValue,
 } from "@chakra-ui/react";
@@ -21,25 +15,14 @@ import {
 import Card from "../../components/Card/Card";
 import CardBody from "../../components/Card/CardBody";
 import CardHeader from "../../components/Card/CardHeader";
-import IconBox from "../../components/Icons/IconBox";
 
 import ConnectCard from "../../components/ConnectCard/ConnectCard";
+import SwitchNetworkCard from "../../components/SwitchNetworkCard/SwitchNetworkCard";
 
 // Assets
 import ProfileBgImage from "../../assets/img/ProfileBackground.png";
-// Custom icons
-import {
-  RocketIcon,
-  WalletIcon,
-  ClockIcon,
-} from "../../components/Icons/Icons.js";
 
-import {
-  FaUserTimes,
-  FaUserCheck,
-  FaExternalLinkAlt,
-  FaHourglassHalf,
-} from "react-icons/fa";
+import { FaExternalLinkAlt } from "react-icons/fa";
 import { useWeb3React } from "@web3-react/core";
 import { useENS } from "../../utils/ens";
 import { useNftBalances } from "../../utils/balances";
@@ -66,8 +49,6 @@ function Dashboard() {
     "rgba(255, 255, 255, 0.31)"
   );
   const subAddressColor = useColorModeValue("gray.400", "gray.300");
-
-  const iconBoxInside = useColorModeValue("white", "white");
 
   return active ? (
     <Flex direction="column">
@@ -174,141 +155,117 @@ function Dashboard() {
             <Flex
               direction={{ sm: "column", lg: "row" }}
               w={{ sm: "100%", md: "50%", lg: "auto" }}
-            >
-              <Button p="0px" bg="transparent" _hover={{ bg: "none" }}>
-                <Flex
-                  align="center"
-                  w={{ lg: "135px" }}
-                  borderRadius="15px"
-                  justifyContent="center"
-                  py="10px"
-                  cursor="pointer"
-                >
-                  <Text fontSize="xs" color="green.300" fontWeight="bold">
-                    TEST
-                  </Text>
-                  <Icon as={FaUserCheck} ml="6px" color="green.300" />
-                </Flex>
-              </Button>
-            </Flex>
+            ></Flex>
           </Flex>
         </Box>
       </Box>
-      {nfts ? (
-        <SimpleGrid w="100%" minChildWidth="250px" gap="24px" mt="24px">
-          {Object.keys(nfts).map((nftId) => {
-            return (
-              <Flex justifyContent="center">
-                <Card
-                  backgroundImage={nfts[nftId].image}
-                  backgroundSize="140%"
-                  backgroundPosition="center"
-                  backgroundRepeat="no-repeat"
-                  p="12px"
-                  minH="350px"
-                  minW="250px"
-                  h={{
-                    sm: "350px",
-                    md: "350px",
-                    lg: "350px",
-                  }}
-                  w={{
-                    sm: "250px",
-                    md: "250px",
-                    lg: "250px",
-                  }}
-                >
-                  <CardBody h="100%" w="100%">
-                    <Flex direction="column" color="white" h="100%" w="100%">
-                      <Flex
-                        justify="space-between"
-                        align="center"
-                        mb="260px"
-                        p="6px"
-                        backdropFilter="blur(5px)"
-                        borderRadius="10px"
-                      >
-                        <Text
-                          fontSize="md"
-                          fontWeight="bold"
-                          textShadow="0px 0px 4px black"
+      {CHAIN_INFO[chainId].mainNFT ? (
+        <>
+          {nfts ? (
+            <SimpleGrid w="100%" minChildWidth="250px" gap="24px" mt="24px">
+              {Object.keys(nfts).map((nftId) => {
+                return (
+                  <Flex justifyContent="center">
+                    <Card
+                      backgroundImage={nfts[nftId].image}
+                      backgroundSize="140%"
+                      backgroundPosition="center"
+                      backgroundRepeat="no-repeat"
+                      p="12px"
+                      minH="350px"
+                      minW="250px"
+                      h={{
+                        sm: "350px",
+                        md: "350px",
+                        lg: "350px",
+                      }}
+                      w={{
+                        sm: "250px",
+                        md: "250px",
+                        lg: "250px",
+                      }}
+                    >
+                      <CardBody h="100%" w="100%">
+                        <Flex
+                          direction="column"
+                          color="white"
+                          h="100%"
+                          w="100%"
                         >
-                          {nfts[nftId].mainName}
-                        </Text>
-                        <Text
-                          fontSize="md"
-                          fontWeight="bold"
-                          textShadow="0px 0px 4px black"
-                        >
-                          #{nfts[nftId].tokenId}
-                        </Text>
-                      </Flex>
-                      <Flex direction="column">
-                        <Flex justify="space-between">
                           <Flex
-                            direction="column"
-                            me="34px"
+                            justify="space-between"
+                            align="center"
+                            mb="260px"
                             p="6px"
                             backdropFilter="blur(5px)"
                             borderRadius="10px"
                           >
                             <Text
-                              fontSize="xs"
+                              fontSize="md"
                               fontWeight="bold"
                               textShadow="0px 0px 4px black"
                             >
-                              STAKE
+                              {nfts[nftId].mainName}
                             </Text>
-                          </Flex>
-                          <Flex
-                            direction="column"
-                            p="6px"
-                            backdropFilter="blur(5px)"
-                            borderRadius="10px"
-                          >
-                            <Text fontSize="xs" textShadow="0px 0px 4px black">
-                              SELL
+                            <Text
+                              fontSize="md"
+                              fontWeight="bold"
+                              textShadow="0px 0px 4px black"
+                            >
+                              #{nfts[nftId].tokenId}
                             </Text>
                           </Flex>
                         </Flex>
-                      </Flex>
-                    </Flex>
-                  </CardBody>
-                </Card>
-              </Flex>
-            );
-          })}
-        </SimpleGrid>
-      ) : nfts == undefined ? (
-        <Flex justifyContent="center" align="center" mt="50px">
-          <CircularProgress
-            isIndeterminate
-            size="100px"
-            color="black"
-            thickness="4px"
-          />
-        </Flex>
+                      </CardBody>
+                    </Card>
+                  </Flex>
+                );
+              })}
+            </SimpleGrid>
+          ) : nfts == undefined ? (
+            <Flex justifyContent="center" align="center" mt="50px">
+              <CircularProgress
+                isIndeterminate
+                size="100px"
+                color="black"
+                thickness="4px"
+              />
+            </Flex>
+          ) : (
+            <Flex
+              justifyContent="center"
+              align="center"
+              mt={{
+                md: "10%",
+                xl: "10%",
+              }}
+            >
+              <Card h="80px" w="500px" p="16px">
+                <CardHeader
+                  p="12px 5px"
+                  mb="12px"
+                  justifyContent="center"
+                  align="center"
+                >
+                  <Text fontSize="lg" color={textColor} fontWeight="bold">
+                    You don't have any MetaBillionnaire in your wallet.
+                  </Text>
+                </CardHeader>
+              </Card>
+            </Flex>
+          )}
+        </>
       ) : (
         <Flex
           justifyContent="center"
           align="center"
+          flexDirection="column"
           mt={{
-            md: "10%",
-            xl: "10%",
+            md: "5%",
+            xl: "5%",
           }}
         >
-          <Card h="80px" w="500px" p="16px">
-            <CardHeader
-              p="12px 5px"
-              mb="12px"
-              justifyContent="center"
-              align="center"
-            >
-              <Text fontSize="lg" color={textColor} fontWeight="bold">
-                You don't have any MetaBillionnaire in your wallet.
-              </Text>
-            </CardHeader>
-          </Card>
+          <SwitchNetworkCard functionality="NFT" chainAvailable={[1]} />
         </Flex>
       )}
     </Flex>

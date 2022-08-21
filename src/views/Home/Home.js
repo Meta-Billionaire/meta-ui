@@ -2,55 +2,28 @@ import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 // Chakra imports
 import {
-  Box,
   Button,
   Flex,
   Grid,
   Icon,
-  Link,
-  Progress,
-  Portal,
   Text,
   Image,
-  SimpleGrid,
   Spacer,
   useColorModeValue,
 } from "@chakra-ui/react";
 
 import { BsArrowRight } from "react-icons/bs";
 
-import { CHAIN_INFO } from "../../utils/constants";
-
 import TokenLaunch from "../../assets/img/tokenLaunch.png";
 
 import Card from "../../components/Card/Card";
 import CardBody from "../../components/Card/CardBody";
-import IconBox from "../../components/Icons/IconBox";
+
 import { Notifs } from "../../components/Notifs/Notifs";
 
-// Custom icons
-import {
-  RocketIcon,
-  WalletIcon,
-  ClockIcon,
-  LogoWhite,
-  LogoBlack,
-} from "../../components/Icons/Icons.js";
-
 export default function Home() {
-  const overlayRef = useRef();
-
   // Chakra color mode
   const textColor = useColorModeValue("gray.700", "white");
-
-  const iconTeal = useColorModeValue(
-    "gray.700",
-    "gray.900"
-  );
-
-  const iconBoxInside = useColorModeValue("white", "white");
-
-  const Logo = useColorModeValue(LogoBlack, LogoWhite);
 
   return (
     <Flex flexDirection="column" pt={{ base: "120px", md: "75px" }}>
@@ -81,7 +54,8 @@ export default function Home() {
                   Decentralized MetaBillionaire application
                 </Text>
                 <Text fontSize="sm" color="gray.400" fontWeight="normal">
-                  MetaBillionaire now provides a decentralized finance product, staking and more.
+                  MetaBillionaire now provides a decentralized finance product,
+                  staking and more.
                 </Text>
                 <Spacer />
                 <Flex align="center">
@@ -160,99 +134,6 @@ export default function Home() {
                 Announcements
               </Text>
               <Notifs />
-            </Flex>
-          </CardBody>
-        </Card>
-      </Grid>
-      <Grid
-        templateColumns={{ sm: "1fr", lg: "1fr 1fr 1fr 1fr" }}
-        templateRows={{ sm: "repeat(2, 1fr)", lg: "1fr" }}
-        gap="24px"
-        mb={{ lg: "26px" }}
-      >
-        <Card p="16px">
-          <CardBody>
-            <Flex direction="column" w="100%">
-              <Flex direction="column" mb="36px" alignSelf="flex-start">
-                <Text
-                  fontSize="lg"
-                  color={textColor}
-                  fontWeight="bold"
-                  mb="6px"
-                >
-                  MetaBillionaire Token
-                </Text>
-                <Text fontSize="md" fontWeight="medium" color="gray.400">
-                  <Text as="span" color="green.400" fontWeight="bold">
-                    23%
-                  </Text>{" "}
-                  circulating supply
-                </Text>
-              </Flex>
-              <SimpleGrid gap={{ sm: "12px" }} columns={2}>
-                <Flex direction="column">
-                  <Flex alignItems="center">
-                    <IconBox
-                      as="box"
-                      h={"30px"}
-                      w={"30px"}
-                      bg={iconTeal}
-                      me="6px"
-                    >
-                      <ClockIcon h={"15px"} w={"15px"} color={iconBoxInside} />
-                    </IconBox>
-                    <Text fontSize="sm" color="gray.400" fontWeight="semibold">
-                      Pending
-                    </Text>
-                  </Flex>
-                  <Text
-                    fontSize="lg"
-                    color={textColor}
-                    fontWeight="bold"
-                    mb="6px"
-                    my="6px"
-                  >
-                    90%
-                  </Text>
-                  <Progress
-                    colorScheme="gray"
-                    borderRadius="12px"
-                    h="5px"
-                    value={90}
-                  />
-                </Flex>
-                <Flex direction="column">
-                  <Flex alignItems="center">
-                    <IconBox
-                      as="box"
-                      h={"30px"}
-                      w={"30px"}
-                      bg={iconTeal}
-                      me="6px"
-                    >
-                      <RocketIcon h={"15px"} w={"15px"} color={iconBoxInside} />
-                    </IconBox>
-                    <Text fontSize="sm" color="gray.400" fontWeight="semibold">
-                      Claimed
-                    </Text>
-                  </Flex>
-                  <Text
-                    fontSize="lg"
-                    color={textColor}
-                    fontWeight="bold"
-                    mb="6px"
-                    my="6px"
-                  >
-                    5%
-                  </Text>
-                  <Progress
-                    colorScheme="gray"
-                    borderRadius="12px"
-                    h="5px"
-                    value={5}
-                  />
-                </Flex>
-              </SimpleGrid>
             </Flex>
           </CardBody>
         </Card>

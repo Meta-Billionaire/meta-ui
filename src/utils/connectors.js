@@ -5,11 +5,11 @@ import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
 import { CHAIN_INFO } from "./constants";
 
-const POLLING_INTERVAL = 12000;
+const POLLING_INTERVAL = 10000;
 
 /*todo detect supported network and add it*/
 export const injected = new InjectedConnector({
-  supportedChainIds: [1],
+  supportedChainIds: [1, 137],
 });
 
 export const walletconnect = new WalletConnectConnector({

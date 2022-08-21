@@ -35,6 +35,7 @@ import { SidebarHelp } from "../../components/Sidebar/SidebarHelp";
 
 import Home from "../../views/Home/Home.js";
 import Dashboard from "../../views/Dashboard/Dashboard.js";
+import Staking from "../../views/Dashboard/Dashboard.js";
 
 function Sidebar(props) {
   // to check for active links and opened collapses
@@ -60,6 +61,20 @@ function Sidebar(props) {
       name: "Dashboard",
       icon: <PersonIcon color="inherit" />,
       component: Dashboard,
+      layout: "/",
+    },
+    {
+      path: "staking",
+      name: "Staking",
+      icon: <WalletIcon color="inherit" />,
+      component: Staking,
+      layout: "/",
+    },
+    {
+      path: "investment",
+      name: "Investment",
+      icon: <StatsIcon color="inherit" />,
+      component: Staking,
       layout: "/",
     },
   ];
@@ -283,6 +298,20 @@ export function SidebarResponsive(props) {
       name: "Dashboard",
       icon: <PersonIcon color="inherit" />,
       component: Dashboard,
+      layout: "/",
+    },
+    {
+      path: "staking",
+      name: "Staking",
+      icon: <WalletIcon color="inherit" />,
+      component: Staking,
+      layout: "/",
+    },
+    {
+      path: "investment",
+      name: "Investment",
+      icon: <StatsIcon color="inherit" />,
+      component: Staking,
       layout: "/",
     },
   ];

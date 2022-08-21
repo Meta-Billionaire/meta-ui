@@ -52,14 +52,14 @@ export function useNftBalances() {
   const [nftBalances, setNftBalances] = useState(undefined);
 
   useEffect(async () => {
-    if (library && chainId && account) {
+    if (library && chainId && account && CHAIN_INFO[chainId].mainNFT) {
       const contract = new ethers.Contract(
         CHAIN_INFO[chainId].mainNFT.address,
         CHAIN_INFO[chainId].mainNFT.abi,
         library
       );
 
-      let balances = (await contract.balanceOf(account)).toNumber();
+      let balances = (await contract.balanceOf(account)).toString();
 
       let nfts = {};
       let tokenId, tokenURI, metadata, image;
@@ -68,11 +68,9 @@ export function useNftBalances() {
         for (let index = 0; index < balances; index++) {
           tokenId = (
             await contract.tokenOfOwnerByIndex(account, index)
-          ).toNumber();
+          ).toString();
 
           tokenURI = await contract.tokenURI(tokenId);
-
-          tokenURI = "ipfs://QmdjzFSZtERsyG3G9G3pEEfd8sFecbTAqDcs6ao4HrT9eW/1";
 
           if (tokenURI.substring(0, 4) == "ipfs") {
             metadata = await fetcher(
@@ -98,10 +96,13 @@ export function useNftBalances() {
             image: image,
           };
         }
+
         setNftBalances(nfts);
       } else {
         setNftBalances(false);
       }
+    } else if (library || chainId || account == undefined) {
+      setNftBalances(undefined);
     } else {
       setNftBalances(false);
     }

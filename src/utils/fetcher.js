@@ -3,8 +3,8 @@ export async function fetcher(...args) {
   try {
     res = await fetch(...args);
     res = res.json();
-  } catch(e){
-    const res = undefined;
+  } catch (e) {
+    res = undefined;
   }
   return res;
 }

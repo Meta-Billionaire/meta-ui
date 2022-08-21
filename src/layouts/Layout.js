@@ -17,8 +17,10 @@ import PanelContent from "../components/Layout/PanelContent";
 
 import Home from "../views/Home/Home.js";
 import Dashboard from "../views/Dashboard/Dashboard.js";
+import Staking from "../views/Staking/Staking.js";
+import Investment from "../views/Investment/Investment.js";
 
-import '@fontsource/montserrat/400.css'
+import "@fontsource/montserrat/400.css";
 
 export default function Layout(props) {
   const { ...rest } = props;
@@ -60,6 +62,8 @@ export default function Layout(props) {
             <Switch>
               <Route path="/home" component={Home} key="0" />
               <Route path="/dashboard" component={Dashboard} key="1" />
+              <Route path="/staking" component={Staking} key="2" />
+              <Route path="/investment" component={Investment} key="3" />
               <Redirect from="/" to="/home" />
             </Switch>
           </PanelContainer>

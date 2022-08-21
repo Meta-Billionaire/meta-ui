@@ -1,9 +1,10 @@
 const abi = [
   {
     inputs: [
-      { internalType: "string", name: "_name", type: "string" },
-      { internalType: "string", name: "_symbol", type: "string" },
-      { internalType: "uint8", name: "_decimals", type: "uint8" },
+      { internalType: "string", name: "tokenName", type: "string" },
+      { internalType: "string", name: "tokenSymbol", type: "string" },
+      { internalType: "uint8", name: "tokenDecimals", type: "uint8" },
+      { internalType: "uint256", name: "maxTotalSupply", type: "uint256" },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -33,75 +34,11 @@ const abi = [
     name: "Approval",
     type: "event",
   },
-  { anonymous: false, inputs: [], name: "Burn", type: "event" },
-  { anonymous: false, inputs: [], name: "LockToken", type: "event" },
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "Mint",
-    type: "event",
-  },
-  { anonymous: false, inputs: [], name: "MintFinished", type: "event" },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "previousOwner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
-      },
-    ],
-    name: "OwnershipTransferred",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_ico",
-        type: "address",
-      },
-    ],
-    name: "SetICO",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "from", type: "address" },
+      { indexed: true, internalType: "address", name: "to", type: "address" },
       {
         indexed: false,
         internalType: "uint256",
@@ -112,50 +49,10 @@ const abi = [
     name: "Transfer",
     type: "event",
   },
-  { anonymous: false, inputs: [], name: "UnlockToken", type: "event" },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_vestedAddress",
-        type: "address",
-      },
-    ],
-    name: "addedToVestedlist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_vestedAddress",
-        type: "address",
-      },
-    ],
-    name: "removedFromVestedlist",
-    type: "event",
-  },
   {
     inputs: [
-      {
-        internalType: "address[]",
-        name: "_vestedAddress",
-        type: "address[]",
-      },
-    ],
-    name: "addToVestedlist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_owner", type: "address" },
-      { internalType: "address", name: "_spender", type: "address" },
+      { internalType: "address", name: "owner", type: "address" },
+      { internalType: "address", name: "spender", type: "address" },
     ],
     name: "allowance",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -164,8 +61,8 @@ const abi = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_spender", type: "address" },
-      { internalType: "uint256", name: "_value", type: "uint256" },
+      { internalType: "address", name: "spender", type: "address" },
+      { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "approve",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -173,19 +70,16 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "_owner", type: "address" }],
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
     name: "balanceOf",
-    outputs: [{ internalType: "uint256", name: "balance", type: "uint256" }],
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "address", name: "_who", type: "address" },
-      { internalType: "uint256", name: "_value", type: "uint256" },
-    ],
+    inputs: [{ internalType: "uint256", name: "value", type: "uint256" }],
     name: "burn",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -198,64 +92,22 @@ const abi = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_spender", type: "address" },
-      {
-        internalType: "uint256",
-        name: "_subtractedValue",
-        type: "uint256",
-      },
+      { internalType: "address", name: "spender", type: "address" },
+      { internalType: "uint256", name: "subtractedValue", type: "uint256" },
     ],
-    name: "decreaseApproval",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "finishMinting",
+    name: "decreaseAllowance",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
-      { internalType: "address", name: "_spender", type: "address" },
-      { internalType: "uint256", name: "_addedValue", type: "uint256" },
+      { internalType: "address", name: "spender", type: "address" },
+      { internalType: "uint256", name: "addedValue", type: "uint256" },
     ],
-    name: "increaseApproval",
+    name: "increaseAllowance",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "lockToken",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "locked",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_to", type: "address" },
-      { internalType: "uint256", name: "_amount", type: "uint256" },
-    ],
-    name: "mint",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "mintingFinished",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -267,44 +119,8 @@ const abi = [
   },
   {
     inputs: [],
-    name: "owner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address[]",
-        name: "_vestedAddress",
-        type: "address[]",
-      },
-    ],
-    name: "removeFromVestedlist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_icocontract", type: "address" },
-    ],
-    name: "setICO",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "symbol",
     outputs: [{ internalType: "string", name: "", type: "string" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "tokenOwner",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -317,8 +133,8 @@ const abi = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_to", type: "address" },
-      { internalType: "uint256", name: "_value", type: "uint256" },
+      { internalType: "address", name: "recipient", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
     ],
     name: "transfer",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -327,44 +143,13 @@ const abi = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_from", type: "address" },
-      { internalType: "address", name: "_to", type: "address" },
-      { internalType: "uint256", name: "_value", type: "uint256" },
+      { internalType: "address", name: "sender", type: "address" },
+      { internalType: "address", name: "recipient", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
     ],
     name: "transferFrom",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_to", type: "address" },
-      { internalType: "uint256", name: "_value", type: "uint256" },
-    ],
-    name: "transferFromERC20Contract",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
-    name: "transferOwnership",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "unlockToken",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "", type: "address" }],
-    name: "vestedlist",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
     type: "function",
   },
 ];
